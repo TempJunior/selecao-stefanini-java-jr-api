@@ -6,11 +6,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.request.AutorRequestDTO;
+import stefanini_cpg_api.api_autores_obras.application.web.dto.response.ArtworkResponseDTO;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.response.AutorArtworkResponseDTO;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.response.AutorResponseDTO;
+import stefanini_cpg_api.api_autores_obras.domain.entities.Artwork;
 import stefanini_cpg_api.api_autores_obras.domain.entities.Autor;
 import stefanini_cpg_api.api_autores_obras.domain.services.AutorService;
 import stefanini_cpg_api.api_autores_obras.domain.services.helpers.CpfUtil;
+import stefanini_cpg_api.api_autores_obras.resource.repository.ArtworkRepository;
 import stefanini_cpg_api.api_autores_obras.resource.repository.AutorRepository;
 
 import java.util.stream.Collectors;
@@ -19,20 +22,22 @@ import java.util.stream.Collectors;
 public class AutorServiceImpl implements AutorService {
 
     private final AutorRepository autorRepository;
+    private final ArtworkRepository artworkRepository;
 
-    public AutorServiceImpl(AutorRepository autorRepository){
+    public AutorServiceImpl(AutorRepository autorRepository, ArtworkRepository artworkRepository){
         this.autorRepository = autorRepository;
+        this.artworkRepository = artworkRepository;
     }
 
     @Override
-    public AutorResponseDTO create(AutorRequestDTO autorRequestDTO) {
+    public Autor create(AutorRequestDTO autorRequestDTO) {
         var autor = new Autor(autorRequestDTO);
         cpfValidate(autor.getCpf(), autor.getId());
         String cpfNormalized = CpfUtil.normalize(autor.getCpf());
         autor.setCpf(cpfNormalized);
         autorRepository.save(autor);
 
-        return new AutorResponseDTO(autor);
+        return autor;
     }
 
     @Override
@@ -45,14 +50,12 @@ public class AutorServiceImpl implements AutorService {
     }
 
     @Override
-    public Page<AutorArtworkResponseDTO> getAllArtworks(Pageable pagination) {
+    public Page<ArtworkResponseDTO> getAllArtworks(Long id, Pageable pagination) {
         Pageable pageable = PageRequest.of(pagination.getPageNumber(), pagination.getPageSize(),
                 Sort.by("id"));
 
-        var page = autorRepository.findPageWithArtworks(pageable)
-                .map(AutorArtworkResponseDTO::new);
-
-        return page;
+        return artworkRepository.findByAutor_Id(id, pageable)
+                .map(ArtworkResponseDTO::new);
     }
 
     @Override

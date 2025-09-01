@@ -16,4 +16,6 @@ public interface ArtworkRepository extends JpaRepository<Artwork, Long> {
     @Query(value = "select distinct a from Autor a left join fetch a.artwork where lower(a.name) like lower(concat('%', :autorName, '%'))",
             countQuery = "select count(a) from Autor a where lower(a.name) like lower(concat('%', :autorName, '%'))")
     Page<Artwork> findByNameWithArtworks(@Param("autorName") String autorName, Pageable pageable);
+
+    Page<Artwork> findByAutor_Id(Long autorId, Pageable pageable);
 }

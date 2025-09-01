@@ -15,12 +15,6 @@ import java.util.Set;
 public interface AutorRepository extends JpaRepository<Autor, Long> {
     boolean existsByCpfAndIdNot(String cpf, Long id);
 
-    @Query(
-            value = "select distinct a from Autor a left join fetch a.artwork",
-            countQuery = "select count(a) from Autor a"
-    )
-    Page<Autor> findPageWithArtworks(Pageable pageable);
-
     Page<AutorArtworkResponseDTO> findByName(Pageable pageable, String autor);
 
     boolean existsByArtwork_id(Long id);
