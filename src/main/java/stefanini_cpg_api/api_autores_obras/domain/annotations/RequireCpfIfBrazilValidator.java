@@ -1,4 +1,4 @@
-package stefanini_cpg_api.api_autores_obras.domain.anottations;
+package stefanini_cpg_api.api_autores_obras.domain.annotations;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
