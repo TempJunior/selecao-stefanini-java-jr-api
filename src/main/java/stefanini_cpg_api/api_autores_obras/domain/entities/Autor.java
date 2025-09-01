@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import stefanini_cpg_api.api_autores_obras.application.web.dto.request.AutorRequestDTO;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_autor")
@@ -24,11 +27,25 @@ public class Autor {
     private Gender gender;
     private String email;
     private LocalDate dateOfBirth;
-    @Enumerated(EnumType.STRING)
-    private Country country;
+    private String country;
     private String cpf;
 
-    @OneToMany()
-    private Artwork artwork;
+    @ManyToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "tb_autor_obras",
+            joinColumns = { @JoinColumn ( name = "obras_id" )},
+            inverseJoinColumns = { @JoinColumn ( name = "projeto_id" )}
+    )
+    private Set<Artwork> artwork = new HashSet<>();
 
+    public Autor(AutorRequestDTO autorRequestDTO) {
+        this.name = autorRequestDTO.name();
+        this.gender = autorRequestDTO.gender();
+        this.email = autorRequestDTO.email();
+        this.dateOfBirth = autorRequestDTO.dateOfBirth();
+        this.country = autorRequestDTO.country();
+        this.cpf = autorRequestDTO.cpf();
+        this.artwork = autorRequestDTO.artwork();
+    }
 }
