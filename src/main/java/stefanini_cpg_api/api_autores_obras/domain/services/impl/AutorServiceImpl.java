@@ -59,12 +59,12 @@ public class AutorServiceImpl implements AutorService {
     }
 
     @Override
-    public Page<AutorArtworkResponseDTO> getAllArtworksByAutorName(Pageable pagination, String autorName) {
+    public Page<ArtworkResponseDTO> getAllArtworksByAutorName(Pageable pagination, String autorName) {
         Pageable pageable = PageRequest.of(pagination.getPageNumber(), pagination.getPageSize(),
                 Sort.by("name"));
-        var page = autorRepository.findByName(pageable, autorName);
 
-        return page;
+         return artworkRepository.findByAutor_NameContaining(pageable, autorName)
+                 .map(ArtworkResponseDTO::new);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package stefanini_cpg_api.api_autores_obras.application.web.controllers;
 
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -44,7 +43,7 @@ public class AutorController {
     }
 
     @GetMapping("artworks/by-name/{autorName}")
-    public ResponseEntity<Page<AutorArtworkResponseDTO>>getAllArtworksByAutorName(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination, @PathVariable String autorName){
+    public ResponseEntity<Page<ArtworkResponseDTO>>getAllArtworksByAutorName(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination, @PathVariable String autorName){
         var page = this.autorService.getAllArtworksByAutorName(pagination, autorName);
         return ResponseEntity.ok(page);
     }

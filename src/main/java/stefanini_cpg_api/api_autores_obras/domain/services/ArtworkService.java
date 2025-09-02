@@ -5,11 +5,13 @@ import org.springframework.data.domain.Pageable;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.request.ArtworkRequestDTO;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.response.ArtworkAutorResponseDTO;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.response.ArtworkResponseDTO;
+import stefanini_cpg_api.api_autores_obras.application.web.dto.response.AutorResponseDTO;
+import stefanini_cpg_api.api_autores_obras.domain.entities.Artwork;
 
 public interface ArtworkService {
-    ArtworkResponseDTO create(ArtworkRequestDTO artworkRequestDTO);
+    Artwork create(ArtworkRequestDTO artworkRequestDTO);
     Page<ArtworkResponseDTO> getAllArtworks(Pageable pageable);
-    Page<ArtworkAutorResponseDTO> getAllArtworksOfAutor(Pageable pageable, String autor);
+    Page<AutorResponseDTO> getAllAutoresOfArtwork(Pageable pageable, Long id);
     void delete(Long id);
 
 }

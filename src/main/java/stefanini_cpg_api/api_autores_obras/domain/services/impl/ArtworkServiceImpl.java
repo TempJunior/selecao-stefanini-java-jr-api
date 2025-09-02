@@ -8,23 +8,27 @@ import org.springframework.stereotype.Service;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.request.ArtworkRequestDTO;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.response.ArtworkAutorResponseDTO;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.response.ArtworkResponseDTO;
+import stefanini_cpg_api.api_autores_obras.application.web.dto.response.AutorResponseDTO;
 import stefanini_cpg_api.api_autores_obras.domain.entities.Artwork;
 import stefanini_cpg_api.api_autores_obras.domain.services.ArtworkService;
 import stefanini_cpg_api.api_autores_obras.resource.repository.ArtworkRepository;
+import stefanini_cpg_api.api_autores_obras.resource.repository.AutorRepository;
 
 @Service
 public class ArtworkServiceImpl implements ArtworkService {
     private final ArtworkRepository artworkRepository;
+    private final AutorRepository autorRepository;
 
-    public ArtworkServiceImpl(ArtworkRepository artworkRepository){
+    public ArtworkServiceImpl(ArtworkRepository artworkRepository, AutorRepository autorRepository){
         this.artworkRepository = artworkRepository;
+        this.autorRepository = autorRepository;
     }
 
     @Override
-    public ArtworkResponseDTO create(ArtworkRequestDTO artworkRequestDTO) {
+    public Artwork create(ArtworkRequestDTO artworkRequestDTO) {
         var artwork = new Artwork(artworkRequestDTO);
         this.artworkRepository.save(artwork);
-        return new ArtworkResponseDTO(artwork);
+        return artwork;
     }
 
     @Override
@@ -36,13 +40,13 @@ public class ArtworkServiceImpl implements ArtworkService {
     }
 
     @Override
-    public Page<ArtworkAutorResponseDTO> getAllArtworksOfAutor(Pageable pagination, String autor) {
+    public Page<AutorResponseDTO> getAllAutoresOfArtwork(Pageable pagination, Long id) {
         Pageable pageable = PageRequest.of(
                 pagination.getPageNumber(), pagination.getPageSize(),
                 Sort.by("name")
         );
-        return artworkRepository.findByNameWithArtworks(autor, pageable)
-                .map(ArtworkAutorResponseDTO::new);
+        return autorRepository.findByAutor_Id(pageable, id)
+                .map(AutorResponseDTO::new);
     }
 
     @Override
