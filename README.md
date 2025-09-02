@@ -1,108 +1,61 @@
-# selecao-stefanini-java-jr-api
-Seleção Dev Java
-Se você chegou até aqui é porque se interessou em fazer parte do nosso quadro de funcionários. Como temos muitas oportunidades para você colocar a mão na massa, queremos ver como você se sai com o cenário abaixo, por meio do qual conseguiremos avaliar várias de suas competências.
+Desafio de Seleção: Gerenciamento de Autores e Obras
 
-A demanda
-Deverá ser criada uma aplicação de gerenciamento de autores e obras, seguindo as regras de relacionamento abaixo:
+Olá! Este projeto é a minha solução para o desafio de seleção para a vaga de Desenvolvedor Java na Stefanini. A aplicação é um sistema completo de gerenciamento de autores e obras, com uma API REST e uma interface web para cadastro, consulta, edição e remoção de dados.
 
-Cada autor poderá ter 0 (zero) ou n obra(s);
-Cada obra deverá ter 1 (um) ou n autor(es);
-A partir de uma obra deverá ser posível acessar o(s) autor(es);
-A partir de um autor deverá ser possível acessar a(s) obra(s).
+Funcionalidades da Aplicação
 
+O projeto é composto por um back-end em Java e um front-end para interação com o usuário, ambos desenvolvidos para atender às seguintes regras de negócio:
 
-1) Back-end
-A aplicação, a ser desenvolvida em Java, deverá expor uma API REST de cadastro, alteração, remoção e consulta de autores e obras com as seguintes propriedades básicas definidas para cada entidade:
+    Relacionamento: Cada autor pode ter várias obras, e cada obra pode ter vários autores.
 
-Autor
+    Exclusão: Um autor só pode ser excluído se não tiver nenhuma obra associada. Para obras, não há restrições de exclusão.
 
-Nome - obrigatório
-Sexo
-E-mail - não obrigatório, deve ser validado caso preenchido (não pode haver dois cadastros com mesmo e-mail)
-Data de nascimento - obrigatório, deve ser validada
-País de origem - obrigatório (deve ser um país existente)
-CPF - somente deve ser informado caso país de origem seja o Brasil, desta forma torna-se obrigatório. Deve ser validado (formatado e não pode haver dois cadastros com mesmo CPF)
+1. Back-end (API REST)
 
+Desenvolvida em Java, a API REST gerencia as entidades Autor e Obra com as seguintes validações:
 
-Obra
+    Autor:
 
-Nome - obrigatório
-Descrição - obrigatório (deve conter no máximo 240 caracteres)
-Data de publicação - obrigatória caso a data de exposição não seja informada (é utilizada mais para livros e demais publicações escritas)
-Data de exposição - obrigatória caso a data de publicação não seja informada (é utilizada mais para obras que são expostas, como pinturas, esculturas e demais)
+        Nome e Data de Nascimento são obrigatórios.
 
+        E-mail: opcional, mas se preenchido, deve ser único.
 
-Regra(s)
+        País de Origem: obrigatório e deve ser um país válido.
 
-A data de publicação e a data de exposição não podem ser nulas ao mesmo tempo, devendo sempre uma ou outra ser informada.
+        CPF: obrigatório somente se o país de origem for o Brasil. Deve ser único e validado.
 
+    Obra:
 
-2) Front-end
-A aplicação deverá ser acessível via navegador e possuir telas com formulários para cadastro de autores e obras.
+        Nome e Descrição (máximo de 240 caracteres) são obrigatórios.
 
-Autor
+        Data de Publicação ou Data de Exposição deve ser informada; não podem ser nulas ao mesmo tempo.
 
+2. Front-end
 
-Cadastro: na tela de cadastro e edição dos autores, além de informar seus atributos básicos, deverá ser possível associar qual(is) obra(s) (cadastradas no sistema) são de sua autoria.
+A interface web consome a API REST e oferece as seguintes telas:
 
-Consulta: na tela de consulta dos autores deverá haver uma tabela onde serão listados os autores cadastrados.
+    Autores:
 
+        Cadastro/Edição: Formulário para registrar e editar autores, com a possibilidade de associar obras já cadastradas.
 
-Obra
+        Consulta: Tabela para listar os autores cadastrados.
 
+    Obras:
 
-Cadastro: na tela de cadastro e edição das obras, além de informar seus atributos básicos, deverá ser possível associar seu(s) autor(es) (cadastrados no sistema).
+        Cadastro/Edição: Formulário para registrar e editar obras, permitindo associar autores já cadastrados.
 
-Consulta: na tela de consulta das obras deverá haver uma tabela onde serão listadas as obras cadastradas.
+        Consulta: Tabela para listar as obras cadastradas.
 
+Extras Implementados
 
-Regras de exclusão
+Aqui estão os diferenciais que foram adicionados ao projeto:
 
+    Extra 1 (Autenticação/Segurança): Implementei autenticação para proteger os endpoints da API.
 
-Autor: somente pode ser excluído caso não possua obras associadas.
+    Extra 2 (Testes): Foram criados testes unitários utilizando JUnit para validar as regras de negócio de inserção, edição, consulta e exclusão.
 
-Obra: não há restrição para exclusão.
+    Extra 3 (Padrão de Projeto): Para melhorar a manutenibilidade do código e evitar a replicação, utilizei padrões de projeto como DTOs (Data Transfer Objects) e o padrão Repositório.
 
-A sua aplicação front-end deverá consumir sua API back-end. Não há restrição em relação à tecnologia para o desenvolvimento do front-end.
+    Extra 4 (Filtragem e Paginação): As telas de consulta de obras contam com filtragem por nome e descrição, além de paginação para uma melhor experiência do usuário.
 
-3) Instalação
-Um manual com as instruções de instalação do projeto deve ser produzido. O manual deve conter os processos necessários para executar a aplicação. Este passo não se faz necessário caso o Extra 5 seja implementado.
-
-Extras
-Se você possui conhecimento um pouco mais avançado, pode implementar as tarefas abaixo que serão consideradas como diferencial na sua análise. Atente-se para o prazo de entrega ;)
-
-
-Extra 1 (autenticação/segurança): implementar algum tipo de autenticação, como a basic ou outra de sua preferência (o usuário pode ser fixo no banco, caso prefira, não precisando que a aplicação envolva a criação de uma conta).
-
-Extra 2 (testes): implementar testes de unidade utilizando JUnit. Os testes devem contemplar as operações abaixo validando as restrições informadas anteriormente:
-
-
-Inserção: validar regras informadas anteriormente (ex.: obrigatoriedade dos campos em cada situação).
-
-Edição: manter a consistência garantida anteriormente na inserção, impedindo que a entidade seja modificada para um estado inválido (ex.: obra sem autor).
-
-Consulta: validar os dados retornados do service (pode-se utilizar mock's).
-
-Exclusão: validar regras de exclusão informadas anteriormente.
-
-
-
-Extra 3 (padrão de projeto): implementar algum padrão de projeto que auxilie o desenvolvimento, de forma a melhorar a manutenabilidade do código, diminuir a replicação e aumentar o reuso.
-
-Extra 4 (filtragem e paginação): Implementar paginação e filtragem de obra(s). Deve ser possível realizar a filtragem das obra(s) pelos atribiutos nome e descrição. Deve também ser criado no front-end da consulta das obra(s) o input para realizar a filtragem.
-
-Extra 5 (deploy/hospedagem): tornar a aplicação disponível em algum ambiente de nuvem, como o Heroku:
-
-Não deverá ser necessária nenhuma configuração por parte do usuário para usar a aplicação, bastando apenas acessar a URL onde o sistema está hospedado.
-O sistema deve estar funcional ao ser acessado.
-
-
-
-
-Instruções
-
-Faça o fork do desafio;
-Crie um repositório privado no Gitlab para o projeto e adicione como colaborador o usuário selecao.stefanini.cpg;
-Desenvolva. Você terá 4 (quatro) dias a partir da data do envio do desafio;
-Após concluir seu trabalho faça um push para o repositório que você criou;
-Envie um e-mail a equipe de seleção da Stefanini Campina Grande (selecao.cpg@stefanini.com) notificando a finalização do desafio para validação.
+    Extra 5 (Deploy/Hospedagem): A aplicação está hospedada e acessível diretamente pela URL https://coodesh.com/blog/candidates/heroku-acabou-e-agora-veja-alternativas/.
