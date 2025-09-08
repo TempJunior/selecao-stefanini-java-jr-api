@@ -15,5 +15,5 @@ public interface AutorRepository extends JpaRepository<Autor, Long> {
     Page<ArtworkResponseDTO> findByName(Pageable pageable, String autor);
 
     boolean existsByArtwork_id(Long id);
-    Page<Autor> findByAutor_Id(Pageable pageable, Long id);
+    Page<Autor> findByArtwork_Id(Pageable pageable, Long id);
 }

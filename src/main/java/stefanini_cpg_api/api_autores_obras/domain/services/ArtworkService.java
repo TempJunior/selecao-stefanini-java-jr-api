@@ -12,5 +12,4 @@ public interface ArtworkService {
     Page<ArtworkResponseDTO> getAllArtworks(Pageable pageable);
     Page<AutorResponseDTO> getAllAutoresOfArtwork(Pageable pageable, Long id);
     void delete(Long id);
-
 }

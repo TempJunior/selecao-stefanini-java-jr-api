@@ -45,7 +45,7 @@ public class ArtworkServiceImpl implements ArtworkService {
                 pagination.getPageNumber(), pagination.getPageSize(),
                 Sort.by("name")
         );
-        return autorRepository.findByAutor_Id(pageable, id)
+        return autorRepository.findByArtwork_Id(pageable, id)
                 .map(AutorResponseDTO::new);
     }
 
