@@ -35,8 +35,6 @@ public record AutorRequestDTO(
         @ValidCountry
         String country,
 
-        @CPF(message = "Invalid CPF")
-        @Pattern(regexp = "^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$", message = "Use o formato 000.000.000-00")
         @Column(name = "cpf", length = 11, unique = true)
         String cpf,
 
