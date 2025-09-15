@@ -13,6 +13,7 @@ import stefanini_cpg_api.api_autores_obras.application.web.dto.response.AutorArt
 import stefanini_cpg_api.api_autores_obras.application.web.dto.response.AutorResponseDTO;
 import stefanini_cpg_api.api_autores_obras.domain.services.impl.AutorServiceImpl;
 
+@CrossOrigin(origins = {"http://localhost:5173", "http://127.0.0.1:5173"}, allowCredentials = "true")
 @RestController
 @RequestMapping("/autor")
 public class AutorController {

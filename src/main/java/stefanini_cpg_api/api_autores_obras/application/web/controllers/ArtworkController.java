@@ -11,6 +11,7 @@ import stefanini_cpg_api.api_autores_obras.application.web.dto.response.ArtworkR
 import stefanini_cpg_api.api_autores_obras.application.web.dto.response.AutorResponseDTO;
 import stefanini_cpg_api.api_autores_obras.domain.services.impl.ArtworkServiceImpl;
 
+@CrossOrigin(origins = {"http://localhost:5173", "http://127.0.0.1:5173"}, allowCredentials = "true")
 @RestController
 @RequestMapping("/artwork")
 public class ArtworkController {
