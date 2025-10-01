@@ -9,7 +9,10 @@ import stefanini_cpg_api.api_autores_obras.domain.entities.Artwork;
 
 public interface ArtworkService {
     Artwork create(ArtworkRequestDTO artworkRequestDTO);
+    Artwork update(Long id, ArtworkRequestDTO artworkRequestDTO);
+    Artwork findById(Long id);
     Page<ArtworkResponseDTO> getAllArtworks(Pageable pageable);
+    Page<ArtworkResponseDTO> getAllArtworksFiltered(Pageable pageable, String name, String description);
     Page<AutorResponseDTO> getAllAutoresOfArtwork(Pageable pageable, Long id);
     void delete(Long id);
 }

@@ -17,7 +17,7 @@ public record ArtworkResponseDTO(
 ) {
     public ArtworkResponseDTO(Artwork artwork){
         this(artwork.getId(), artwork.getName(), artwork.getDescription(), artwork.getPublicationDate(), artwork.getExposureDate(),
-                artwork.getAutor()
+                artwork.getAutores()
                         .stream()
                         .map(Autor::getName)
                         .collect(Collectors.toSet()));

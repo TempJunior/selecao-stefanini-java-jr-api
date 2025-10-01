@@ -31,12 +31,9 @@ public class Autor {
     private String cpf;
 
     @ManyToMany(
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "tb_autor_obras",
-            joinColumns = { @JoinColumn ( name = "obras_id" )},
-            inverseJoinColumns = { @JoinColumn ( name = "projeto_id" )}
-    )
+            mappedBy = "autores",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            fetch = FetchType.LAZY)
     private Set<Artwork> artwork = new HashSet<>();
 
     public Autor(AutorRequestDTO autorRequestDTO) {

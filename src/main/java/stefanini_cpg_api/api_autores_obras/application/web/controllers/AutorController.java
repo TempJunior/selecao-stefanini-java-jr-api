@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.request.AutorRequestDTO;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.response.ArtworkResponseDTO;
-import stefanini_cpg_api.api_autores_obras.application.web.dto.response.AutorArtworkResponseDTO;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.response.AutorResponseDTO;
 import stefanini_cpg_api.api_autores_obras.domain.services.impl.AutorServiceImpl;
 
@@ -49,8 +48,20 @@ public class AutorController {
         return ResponseEntity.ok(page);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<AutorResponseDTO> getById(@PathVariable Long id){
+        var autor = this.autorService.findById(id);
+        return ResponseEntity.ok(new AutorResponseDTO(autor));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AutorResponseDTO> update(@PathVariable Long id, @RequestBody @Valid AutorRequestDTO autorRequest){
+        var updatedAutor = this.autorService.update(id, autorRequest);
+        return ResponseEntity.ok(new AutorResponseDTO(updatedAutor));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
         this.autorService.delete(id);
         return ResponseEntity.noContent().build();
     }

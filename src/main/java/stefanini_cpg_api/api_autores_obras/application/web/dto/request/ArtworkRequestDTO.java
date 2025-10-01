@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import stefanini_cpg_api.api_autores_obras.domain.annotations.PublicationOrExposureDateRequired;
-import stefanini_cpg_api.api_autores_obras.domain.entities.Autor;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -15,15 +14,15 @@ public record ArtworkRequestDTO(
         @NotBlank
         String name,
 
-        @Size(max = 250, message = "Cannot contain more than 250 characters")
-                @NotBlank
+        @Size(max = 240, message = "Description must contain at most 240 characters")
+        @NotBlank
         String description,
 
         LocalDate publicationDate,
 
         LocalDate exposureDate,
 
-        @NotNull
-        Set<Autor> autores
+        @NotNull(message = "At least one author ID must be provided")
+        Set<Long> authorIds
 ) {
 }

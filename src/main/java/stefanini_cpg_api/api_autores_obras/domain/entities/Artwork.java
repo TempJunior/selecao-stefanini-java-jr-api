@@ -29,14 +29,30 @@ public class Artwork {
     @Column(name = "exposure_date")
     private LocalDate exposureDate;
 
-    @ManyToMany(mappedBy = "artwork")
-    private Set<Autor> autor = new HashSet<>();
+    @ManyToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "tb_autor_obras",
+            joinColumns = { @JoinColumn ( name = "obras_id" )},
+            inverseJoinColumns = { @JoinColumn ( name = "autor_id" )}
+    )
+    private Set<Autor> autores = new HashSet<>();
 
-    public Artwork(ArtworkRequestDTO artworkRequestDTO) {
-        this.name = artworkRequestDTO.name();
-        this.description = artworkRequestDTO.description();
-        this.publicationDate = artworkRequestDTO.publicationDate();
-        this.exposureDate = artworkRequestDTO.exposureDate();
-        this.autor = artworkRequestDTO.autores();
+    public void updateArtwork(ArtworkRequestDTO artworkRequestDTO, Set<Autor> autores) {
+        if (artworkRequestDTO.name() != null) {
+            this.name = artworkRequestDTO.name();
+        }
+        if (artworkRequestDTO.description() != null) {
+            this.description = artworkRequestDTO.description();
+        }
+        if (artworkRequestDTO.publicationDate() != null) {
+    }
+        if (artworkRequestDTO.exposureDate() != null) {
+            this.exposureDate = artworkRequestDTO.exposureDate();
+        }
+        if (artworkRequestDTO.authorIds() != null) {
+            this.autores = autores;
+        }
     }
 }

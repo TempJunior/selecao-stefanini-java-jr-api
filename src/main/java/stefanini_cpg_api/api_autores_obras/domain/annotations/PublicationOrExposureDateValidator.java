@@ -9,13 +9,12 @@ public class PublicationOrExposureDateValidator implements ConstraintValidator<P
     @Override
     public boolean isValid(ArtworkRequestDTO artwork, ConstraintValidatorContext context) {
         if (artwork == null) {
-            return true; // @NotNull cuidaria de null no objeto
+            return true;
         }
 
         boolean hasPublication = artwork.publicationDate() != null;
         boolean hasExposure = artwork.exposureDate() != null;
 
-        // pelo menos um tem que estar presente
         return hasPublication || hasExposure;
     }
 }

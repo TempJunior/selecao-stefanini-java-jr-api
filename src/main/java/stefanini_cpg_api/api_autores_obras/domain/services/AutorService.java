@@ -4,12 +4,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.request.AutorRequestDTO;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.response.ArtworkResponseDTO;
-import stefanini_cpg_api.api_autores_obras.application.web.dto.response.AutorArtworkResponseDTO;
 import stefanini_cpg_api.api_autores_obras.application.web.dto.response.AutorResponseDTO;
 import stefanini_cpg_api.api_autores_obras.domain.entities.Autor;
 
 public interface AutorService {
     Autor create(AutorRequestDTO autorRequestDTO);
+    Autor update(Long id, AutorRequestDTO autorRequestDTO);
+    Autor findById(Long id);
     Page<AutorResponseDTO> getAllAtores(Pageable pageable);
     Page<ArtworkResponseDTO> getAllArtworks(Long id, Pageable pageable);
     Page<ArtworkResponseDTO> getAllArtworksByAutorName(Pageable pageable, String autorName);

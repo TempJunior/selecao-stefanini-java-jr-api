@@ -15,7 +15,6 @@ public @interface RequireCpfIfBrazil {
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
-    // nomes dos campos
     String countryField();
     String cpfField();
 }

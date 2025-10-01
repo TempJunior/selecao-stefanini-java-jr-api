@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
-import org.hibernate.validator.constraints.br.CPF;
 import stefanini_cpg_api.api_autores_obras.domain.annotations.RequireCpfIfBrazil;
 import stefanini_cpg_api.api_autores_obras.domain.annotations.ValidCountry;
 import stefanini_cpg_api.api_autores_obras.domain.entities.Artwork;

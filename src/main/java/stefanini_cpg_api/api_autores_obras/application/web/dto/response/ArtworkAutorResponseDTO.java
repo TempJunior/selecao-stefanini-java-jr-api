@@ -13,7 +13,7 @@ public record ArtworkAutorResponseDTO(
     public ArtworkAutorResponseDTO(Artwork artwork) {
         this(artwork.getName(),
                 artwork.getDescription(),
-                artwork.getAutor()
+                artwork.getAutores()
                         .stream()
                         .map(AutorResponseDTO::new)
                         .collect(Collectors.toSet())

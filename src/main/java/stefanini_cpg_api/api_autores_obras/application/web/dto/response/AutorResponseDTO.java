@@ -1,6 +1,5 @@
 package stefanini_cpg_api.api_autores_obras.application.web.dto.response;
 
-import stefanini_cpg_api.api_autores_obras.domain.entities.Artwork;
 import stefanini_cpg_api.api_autores_obras.domain.entities.Autor;
 import stefanini_cpg_api.api_autores_obras.domain.entities.Gender;
 
